@@ -26,17 +26,23 @@ public class TestRunner {
         check("null -> throws IllegalArgumentException", threw);
 
         // TODO: R2 - boundary ความยาว (เช่น 7, 8, 20, 21)
-
+        check("password len = 8", PasswordValidator.validate("Abcde123")==true);
+        check("password len < 8", PasswordValidator.validate("Abcde12")==false);
+        check("password len = 20", PasswordValidator.validate("Abcdefghij1234567890")==true);
+        check("password len > 20", PasswordValidator.validate("Abcdefghij1234567890ab")==false);
         // TODO: R3 - ไม่มีตัวพิมพ์ใหญ่ -> false
-
+        check("password no upper", PasswordValidator.validate("abcdefg1")==false);
         // TODO: R4 - ไม่มีตัวพิมพ์เล็ก -> false
-
+        check("password no lower", PasswordValidator.validate("ABCDEFG1")==false);
         // TODO: R5 - ไม่มีตัวเลข -> false
-
+        check("password no num", PasswordValidator.validate("AbcdefghI")==false);
         // TODO: R6 - มีช่องว่าง -> false
-
+        check("password with space", PasswordValidator.validate("Abcd eFg12")==false);
         // TODO: boundary อื่นๆ ที่คุณคิดว่าจำเป็น
-
+        // TODO: มีตัวอักษรพิเศษ
+        check("password with special", PasswordValidator.validate("@AbcdeFg12")==true);
+        // TODO: ไม่ได้ใส่ password
+        check("password no char and num", PasswordValidator.validate("")==false);
         System.out.println("==================================");
         System.out.printf("PASS %d / FAIL %d%n", pass, fail);
         System.out.println("==================================");
